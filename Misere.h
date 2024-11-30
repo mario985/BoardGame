@@ -4,12 +4,12 @@
 #include "BoardGame_Classes.h"
 
 template <typename T>
-class X_O_Board:public Board<T> {
+class Misere_Board:public Board<T> {
 private:
     bool game_over;  // Flag to track if the game is over
     T last_player_symbol;  // Track the last symbol to identify the losing player
 public:
-    X_O_Board();
+    Misere_Board();
     bool update_board(int x, int y, T symbol);
     bool is_win();
     bool is_draw();
@@ -18,17 +18,18 @@ public:
 };
 
 template <typename T>
-class X_O_Player : public Player<T> {
+class Misere_Player : public Player<T> {
+    string name2 ;
 public:
-    X_O_Player (string name, T symbol);
+    Misere_Player (string name, T symbol);
     void getmove(int& x, int& y) ;
 
 };
 
 template <typename T>
-class X_O_Random_Player : public RandomPlayer<T>{
+class Misere_Random_Player : public RandomPlayer<T>{
 public:
-    X_O_Random_Player (T symbol);
+    Misere_Random_Player (T symbol);
     void getmove(int &x, int &y) ;
 };
 
@@ -44,9 +45,9 @@ public:
 
 using namespace std;
 
-// Constructor for X_O_Board
+// Constructor for Misere_Board
 template <typename T>
-X_O_Board<T>::X_O_Board() : game_over(false), last_player_symbol(0) {
+Misere_Board<T>::Misere_Board() : game_over(false), last_player_symbol(0) {
     this->rows = this->columns = 3;
     this->board = new char*[this->rows];
     for (int i = 0; i < this->rows; i++) {
@@ -59,7 +60,7 @@ X_O_Board<T>::X_O_Board() : game_over(false), last_player_symbol(0) {
 }
 
 template <typename T>
-bool X_O_Board<T>::update_board(int x, int y, T mark) {
+bool Misere_Board<T>::update_board(int x, int y, T mark) {
     if (game_over) {
         return false;  // Prevent further moves if game is already over
     }
@@ -84,7 +85,7 @@ bool X_O_Board<T>::update_board(int x, int y, T mark) {
 }
 
 template <typename T>
-bool X_O_Board<T>::is_win() {
+bool Misere_Board<T>::is_win() {
     for (int i = 0; i < this->rows; i++) {
         if ((this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2] && this->board[i][0] != 0) ||
             (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i] && this->board[0][i] != 0)) {
@@ -101,16 +102,16 @@ bool X_O_Board<T>::is_win() {
 }
 
 template <typename T>
-bool X_O_Board<T>::is_draw() {
+bool Misere_Board<T>::is_draw() {
     return (this->n_moves == 9 && !game_over);
 }
 
 template <typename T>
-bool X_O_Board<T>::game_is_over() {
+bool Misere_Board<T>::game_is_over() {
     return game_over || is_draw();
 }
 template <typename T>
-void X_O_Board<T>::display_board() {
+void Misere_Board<T>::display_board() {
     for (int i = 0; i < this->rows; i++) {
         cout << "\n| ";
         for (int j = 0; j < this->columns; j++) {
@@ -121,26 +122,26 @@ void X_O_Board<T>::display_board() {
     }
     cout << endl;
 }
-// Constructor for X_O_Player
+// Constructor for Misere_Player
 template <typename T>
-X_O_Player<T>::X_O_Player(string name, T symbol) : Player<T>(name, symbol) {}
+Misere_Player<T>::Misere_Player(string name, T symbol) : Player<T>(name, symbol) {}
 
 template <typename T>
-void X_O_Player<T>::getmove(int& x, int& y) {
+void Misere_Player<T>::getmove(int& x, int& y) {
     cout << "\nPlease enter your move x and y (0 to 2) separated by spaces: ";
     cin >> x >> y;
 }
 
-// Constructor for X_O_Random_Player
+// Constructor for Misere_Random_Player
 template <typename T>
-X_O_Random_Player<T>::X_O_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
+Misere_Random_Player<T>::Misere_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
     this->dimension = 3;
     this->name = "Random Computer Player";
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
 }
 
 template <typename T>
-void X_O_Random_Player<T>::getmove(int& x, int& y) {
+void Misere_Random_Player<T>::getmove(int& x, int& y) {
     x = rand() % this->dimension;  // Random number between 0 and 2
     y = rand() % this->dimension;
 }

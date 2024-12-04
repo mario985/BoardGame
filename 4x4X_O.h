@@ -26,7 +26,11 @@ public:
 
 template <typename T>
 class _4x4_X_O_Random_Player : public RandomPlayer<T>{
+    private:
+    vector<char>tokens;
+    T Symbol;
 public:
+     void findtokens();
     _4x4_X_O_Random_Player (T symbol);
     void getmove(int &x, int &y) ;
 };
@@ -199,13 +203,15 @@ void _4x4_X_O_Player<T>::getmove(int& x, int& y) {
 // Constructor for _4x4_X_O_Random_Player
 template <typename T>
 _4x4_X_O_Random_Player<T>::_4x4_X_O_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
+    Symbol=symbol;
     this->dimension =4 ;
     this->name = "Random Computer Player";
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
 }
-
 template <typename T>
 void _4x4_X_O_Random_Player<T>::getmove(int& x, int& y) {
+    px = rand() % this->dimension;
+    py = rand() % this->dimension;
     x = rand() % this->dimension;  // Random number between 0 and 2
     y = rand() % this->dimension;
 }

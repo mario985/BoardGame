@@ -216,14 +216,14 @@ int main() {
 
     switch(choice) {
         case 1:
-            players[0] = new Misere_Player<char>(playerXName, 'X');
+            players[1] = new Misere_Player<char>(playerXName, 'X');
             break;
         case 2:
-            players[0] = new Misere_Random_Player<char>('X');
+            players[1] = new Misere_Random_Player<char>('X');
             break;
         case 3:
-            players[0] = new X_O_MinMax_Player<char>('X');
-            players[0]->setBoard(B);
+            players[1] = new X_O_MinMax_Player<char>('X');
+            players[1]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 1. Exiting the game.\n";
@@ -241,14 +241,14 @@ int main() {
 
     switch(choice) {
         case 1:
-            players[1] = new Misere_Player<char>(player2Name, 'O');
+            players[0] = new Misere_Player<char>(player2Name, 'O');
             break;
         case 2:
-            players[1] = new Misere_Random_Player<char>('O');
+            players[0] = new Misere_Random_Player<char>('O');
             break;
         case 3:
-            players[1] = new X_O_MinMax_Player<char>('O');
-            players[1]->setBoard(B);
+            players[0] = new X_O_MinMax_Player<char>('O');
+            players[0]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 2. Exiting the game.\n";

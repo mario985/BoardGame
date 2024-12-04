@@ -3,10 +3,8 @@
 #define _5X5X_O_H
 
 #include "BoardGame_Classes.h"
-
 template <typename T>
 class _5x5_XO_Board:public Board<T> {
-private :
     int x_count , o_count ;
 public:
     _5x5_XO_Board ();
@@ -15,6 +13,7 @@ public:
     bool is_win() ;
     bool is_draw();
     bool game_is_over();
+    void count();
 
 };
 
@@ -58,8 +57,12 @@ _5x5_XO_Board<T>::_5x5_XO_Board() {
 }
 template <typename T>
 bool _5x5_XO_Board<T>::update_board(int x, int y, T mark) {
+    if(this->n_moves >= 24){
+        this->board[x][y] = 0;
+        return true ;
+    }
     // Only update if move is valid
-    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns || (x == 0 && y==4)) && (this->board[x][y] == 0|| mark == 0)) {
+    else if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns || (x == 0 && y==4)) && (this->board[x][y] == 0|| mark == 0)) {
         if (mark == 0){
             this->n_moves--;
             this->board[x][y] = 0;
@@ -90,10 +93,8 @@ void _5x5_XO_Board<T>::display_board() {
     cout << endl;
 }
 template <typename T>
-bool _5x5_XO_Board<T>::is_win() {
-    int x_count = 0, o_count = 0;
-
-    auto count_sequence = [&](int i, int j, int di, int dj) {
+void _5x5_XO_Board<T>::count(){
+    auto counting = [&](int i, int j, int di, int dj) {
         char mark = this->board[i][j];
         if (mark != 0 && 
             this->board[i + di][j + dj] == mark &&
@@ -106,37 +107,44 @@ bool _5x5_XO_Board<T>::is_win() {
     // Check rows
     for (int i = 0; i < this->rows; ++i) {
         for (int j = 0; j <= this->columns - 3; ++j) {
-            count_sequence(i, j, 0, 1);
+            counting(i, j, 0, 1);
         }
     }
 
     // Check columns
     for (int i = 0; i <= this->rows - 3; ++i) {
         for (int j = 0; j < this->columns; ++j) {
-            count_sequence(i, j, 1, 0);
+            counting(i, j, 1, 0);
         }
     }
 
     // Check diagonals (top-left to bottom-right)
     for (int i = 0; i <= this->rows - 3; ++i) {
         for (int j = 0; j <= this->columns - 3; ++j) {
-            count_sequence(i, j, 1, 1);
+            counting(i, j, 1, 1);
         }
     }
 
     // Check diagonals (top-right to bottom-left)
     for (int i = 0; i <= this->rows - 3; ++i) {
         for (int j = 2; j < this->columns; ++j) {
-            count_sequence(i, j, 1, -1);
+            counting(i, j, 1, -1);
         }
     }
-
-    // Determine the winner based on counts
-    if (this->n_moves == 24) { // All moves played
-        return x_count > o_count; // X wins if they have more sequences
+}
+template <typename T>
+bool _5x5_XO_Board<T>::is_win() {
+    if (this->n_moves == 24){
+        count();
     }
-
-    return false; // No win condition met yet
+     if (this->x_count > this->o_count){
+        this->o_count += 50 ;
+        return false ;
+     }
+     else if (this->x_count < this->o_count){
+        return true  ;
+     }
+     return false ;
 }
     template <typename T>
 bool _5x5_XO_Board<T>::is_draw() {
@@ -144,7 +152,7 @@ bool _5x5_XO_Board<T>::is_draw() {
 }
 template <typename T>
 bool _5x5_XO_Board<T>::game_is_over() {
-    return is_win();
+    return is_draw();
 }
 template <typename T>
 _5x5_XO_Player<T>::_5x5_XO_Player(string name, T symbol) : Player<T>(name, symbol) {}

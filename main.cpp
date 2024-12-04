@@ -7,6 +7,7 @@
 #include "5x5X_O.h"
 #include "Misere.h"
 #include "ultimate_Tic_Tac_Toe.h"
+#include "4x4X_O.h"
 using namespace std;
 int main() {
     int gameChoice;

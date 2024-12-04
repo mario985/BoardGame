@@ -121,7 +121,6 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::update_board(int x, int y, T mark) {
     }
     return false;
 }
-// Display the board and the pieces on it
 template <typename T>
 void Ultimate_Tic_Tac_Toe_Board<T>::display_board() {
     if(alreadyDisplayed){
@@ -179,7 +178,6 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
     return false;
 }
 
-// Return true if 9 moves are done and no winner
 template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::is_draw() {
     return (this->n_moves == 9 && !is_win());
@@ -232,13 +230,11 @@ void Ultimate_Tic_Tac_Toe_Player<T>::getmove(int& x, int& y) {
     
     
 }
-
-// Constructor for Ultimate_Tic_Tac_Toe_Random_Player
 template <typename T>
 Ultimate_Tic_Tac_Toe_Random_Player<T>::Ultimate_Tic_Tac_Toe_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
     this->dimension = 3;
     this->name = "Random Computer Player";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0))); 
 }
 
 template <typename T>
@@ -246,5 +242,5 @@ void Ultimate_Tic_Tac_Toe_Random_Player<T>::getmove(int& x, int& y) {
     x = rand() % this->dimension;  // Random number between 0 and 2
     y = rand() % this->dimension;
 }
-#endif //_3X3Ultimate_Tic_Tac_Toe_H
+#endif
 

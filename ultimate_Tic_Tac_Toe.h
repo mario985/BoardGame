@@ -23,6 +23,7 @@ public:
     bool mini_win();
     void fill_board(T symbol);
     bool mini_draw();
+    void display_mini_boards();
 
 };
 template <typename T>
@@ -123,10 +124,7 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::update_board(int x, int y, T mark) {
 }
 // Display the board and the pieces on it
 template <typename T>
-void Ultimate_Tic_Tac_Toe_Board<T>::display_board() {
-    if(alreadyDisplayed){
-        return;
-    }
+void Ultimate_Tic_Tac_Toe_Board<T>::display_mini_boards(){
     int board_count = MiniBoards.size();
 int grids_per_row = 3;
 
@@ -158,6 +156,22 @@ for (int row = 0; row < grids_per_row; ++row) {
 }
 
 }
+template <typename T>
+void Ultimate_Tic_Tac_Toe_Board<T>::display_board() {
+    if(alreadyDisplayed ||firsttime){
+        return;
+    }
+ for (int i = 0; i < this->rows; i++) {
+        cout << "\n| ";
+        for (int j = 0; j < this->columns; j++) {
+            cout << "(" << i << "," << j << ")";
+            cout << setw(2) <<MiniBoards[BoardNumber][i][j] << " |";
+        }
+        cout << "\n-----------------------------";
+    }
+    cout << endl;
+
+}
 
 // Returns true if there is any winner
 template <typename T>
@@ -166,6 +180,7 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
     for (int i = 0; i < this->rows; i++) {
         if ((this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2] && this->board[i][0] != 0) ||
             (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i] && this->board[0][i] != 0)) {
+            display_mini_boards();
             return true;
         }
     }
@@ -173,6 +188,7 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
     // Check diagonals
     if ((this->board[0][0] == this->board[1][1] && this->board[1][1] == this->board[2][2] && this->board[0][0] != 0) ||
         (this->board[0][2] == this->board[1][1] && this->board[1][1] == this->board[2][0] && this->board[0][2] != 0)) {
+        display_mini_boards();
         return true;
     }
 
@@ -182,17 +198,24 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
 // Return true if 9 moves are done and no winner
 template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::is_draw() {
-    return (this->n_moves == 9 && !is_win());
+    if(this->n_moves == 9 && !is_win())
+    {
+        display_mini_boards();
+        return true;
+    }
+    return false;
 }
 
 template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::game_is_over() {
     if( is_win() || is_draw()){
+        display_mini_boards();
         return true;
     }
     else{
     if(mini_win() || firsttime ||mini_draw())
     {
+        display_mini_boards();
         int n;
         cout<<"Enter the boardnumber from (1-9): ";
         while(true){

@@ -67,30 +67,23 @@ bool FourInRow_Board<T>::update_board(int x, int y, T mark) {
     }
     return false;
 }
-
-// Display the board and the pieces on it
 template <typename T>
 void FourInRow_Board<T>::display_board() {
     for (int i = 5; i >= 0; i--) {
-        // Print the horizontal separator
         for (int j = 0; j < 7; j++) {
             cout << "+---";
         }
         cout << "+" << endl;
-
-        // Print the cells with vertical separators
         for (int j = 0; j < 7; j++) {
             cout << "| ";
-            if (this->board[i][j] != 0) { // Non-empty cell
+            if (this->board[i][j] != 0) { 
                 cout << this->board[i][j] << " ";
-            } else { // Empty cell
+            } else { 
                 cout << "  ";
             }
         }
         cout << "|" << endl;
     }
-
-    // Print the bottom border
     for (int j = 0; j < 7; j++) {
         cout << "+---";
     }
@@ -101,7 +94,6 @@ void FourInRow_Board<T>::display_board() {
 // Returns true if there is any winner
 template <typename T>
 bool FourInRow_Board<T>::is_win() {
-    // Check rows and columns
         for (int row = 0; row < 6; ++row) {
         for (int col = 0; col < 7; ++col) {
             if (this->board[row][col] !=0) {
@@ -140,7 +132,7 @@ void FourINRow_Player<T>::getmove(int& x, int& y) {
     cin >> x;
 }
 
-// Constructor for X_O_Random_Player
+// Constructor for Ultimate_Tic_Tac_Toe_Random_Player
 template <typename T>
 FourInRow_Random_Player<T>::FourInRow_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
     this->dimension = 6;

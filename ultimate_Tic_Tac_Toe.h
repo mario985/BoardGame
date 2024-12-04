@@ -105,18 +105,17 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::update_board(int x, int y, T mark) {
         return true;
     }
     if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (MiniBoards[BoardNumber][x][y] == 0|| mark == 0)) {
-        if (mark == 0){
-            this->n_moves--;
-        }
-        else {
             MiniBoards[BoardNumber][x][y]=toupper(mark);
             mini_moves++;
-            if(mini_win()){
+            if(mini_draw()){
+                this->n_moves++;
+            }
+            else if(mini_win()){
                 fill_board(mark);
                  this->n_moves++;
                 this->board[BoardNumber/3][BoardNumber%3]=toupper(mark);
             }
-        }
+        
 
         return true;
     }

@@ -327,7 +327,7 @@ int main() {
         cout << "Invalid game choice. Exiting.\n";
         return 1;
     }
-        cout << "\nEEEEE  X   X  III  TTTTT   TTTTT  III  N   N   GGG  "<<endl;
+      cout << "\nEEEEE  X   X  III  TTTTT   TTTTT  III  N   N   GGG  "<<endl;
         cout << "E      X   X   I     T       T     I   NN  N  G     "<<endl;
         cout << "EEE     X X    I     T       T     I   N N N  G  GG "<<endl;
         cout << "E        X     I     T       T     I   N  NN  G   G "<<endl;

@@ -175,7 +175,6 @@ void _4x4_X_O_Player<T>::getmove(int& x, int& y) {
 }
 template <typename T>
 _4x4_X_O_Random_Player<T>::_4x4_X_O_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
-    Symbol=symbol;
     this->dimension =4 ;
     this->name = "Random Computer Player";
     srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator

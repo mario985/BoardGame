@@ -26,11 +26,7 @@ public:
 
 template <typename T>
 class _4x4_X_O_Random_Player : public RandomPlayer<T>{
-    private:
-    vector<char>tokens;
-    T Symbol;
 public:
-     void findtokens();
     _4x4_X_O_Random_Player (T symbol);
     void getmove(int &x, int &y) ;
 };
@@ -71,31 +67,9 @@ _4x4_X_O_Board<T>::_4x4_X_O_Board() {
 
 template <typename T>
 bool _4x4_X_O_Board<T>::update_board(int x, int y, T mark) {
-    bool isVerticalOrHorizontal = (x == px && y != py) || (x != px && y == py);
-    bool pathIsClear = true;
-    if (isVerticalOrHorizontal) {
-        if (x == px) { // Horizontal move
-            int start = std::min(y, py);
-            int end = std::max(y, py);
-            for (int j = start + 1; j < end; j++) {
-                if (this->board[x][j] != 0) {
-                    pathIsClear = false;
-                    break;
-                }
-            }
-        } else if (y == py) { // Vertical move
-            int start = std::min(x, px);
-            int end = std::max(x, px);
-            for (int i = start + 1; i < end; i++) {
-                if (this->board[i][y] != 0) {
-                    pathIsClear = false;
-                    break;
-                }
-            }
-        }
-    }
-    // Only update if move is valid
-    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (this->board[x][y] == 0|| mark == 0) && (this->board[px][py] == toupper(mark)) &&(isVerticalOrHorizontal) && (pathIsClear)) {
+    bool isVerticalOrHorizontal = 
+    (x == px && abs(y - py) == 1) ||(y == py && abs(x - px) == 1);
+    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (this->board[x][y] == 0|| mark == 0) && (this->board[px][py] == toupper(mark)) &&(isVerticalOrHorizontal)) {
         if (mark == 0){
             this->n_moves--;
             this->board[x][y] = 0;
@@ -199,8 +173,6 @@ void _4x4_X_O_Player<T>::getmove(int& x, int& y) {
     cout << "\nPlease enter your move x and y (0 to 3) separated by spaces: ";
     cin >> x >> y;
 }
-
-// Constructor for _4x4_X_O_Random_Player
 template <typename T>
 _4x4_X_O_Random_Player<T>::_4x4_X_O_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
     Symbol=symbol;

@@ -3,16 +3,12 @@
 #define _Ultimate_Tic_Tac_Toe_H
 
 #include "BoardGame_Classes.h"
-
+ int BoardNumber=0;
 template <typename T>
 class Ultimate_Tic_Tac_Toe_Board:public Board<T> {
     private:
-    int BoardNumber;
     vector<vector<vector<char>>> MiniBoards;
-    bool firsttime;
-    vector<bool>chosenboards;
     int mini_moves;
-    bool alreadyDisplayed;
 public:
     Ultimate_Tic_Tac_Toe_Board ();
     bool update_board (int x , int y , T symbol);
@@ -23,7 +19,6 @@ public:
     bool mini_win();
     void fill_board(T symbol);
     bool mini_draw();
-    void display_mini_boards();
 
 };
 template <typename T>
@@ -53,11 +48,7 @@ using namespace std;
 template <typename T>
 Ultimate_Tic_Tac_Toe_Board<T>::Ultimate_Tic_Tac_Toe_Board() {
     MiniBoards.assign(9, vector<vector<char>>(3, vector<char>(3, 0)));
- // 9 grids, each 3x3, initialized with 0
-    alreadyDisplayed=false;
-    firsttime=true;
     this->n_moves = 0;
-    chosenboards.resize(9);
     BoardNumber=0;
     this->rows = this->columns = 3;
     this->board = new char*[this->rows];
@@ -70,11 +61,6 @@ Ultimate_Tic_Tac_Toe_Board<T>::Ultimate_Tic_Tac_Toe_Board() {
     mini_moves=0;
 }
 template <typename T>
-bool Ultimate_Tic_Tac_Toe_Board<T>::mini_draw(){
-    return mini_moves==9;
-
-}
-template <typename T>
 void Ultimate_Tic_Tac_Toe_Board<T>::fill_board(T symbol){
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
@@ -83,16 +69,28 @@ void Ultimate_Tic_Tac_Toe_Board<T>::fill_board(T symbol){
     }
 }
 template <typename T>
+bool Ultimate_Tic_Tac_Toe_Board<T>::mini_draw(){
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+            if(MiniBoards[BoardNumber][i][j]==0)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+
+}
+template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::mini_win(){
-    int boardnumber = BoardNumber;
         for (int i = 0; i < this->rows; i++) {
-        if ((MiniBoards[boardnumber][i][0] == MiniBoards[boardnumber][i][1] && MiniBoards[boardnumber][i][1] == MiniBoards[boardnumber][i][2] && MiniBoards[boardnumber][i][0] != 0) ||
-            (MiniBoards[boardnumber][0][i] == MiniBoards[boardnumber][1][i] && MiniBoards[boardnumber][1][i] == MiniBoards[boardnumber][2][i] && MiniBoards[boardnumber][0][i] != 0)) {
+        if ((MiniBoards[BoardNumber][i][0] == MiniBoards[BoardNumber][i][1] && MiniBoards[BoardNumber][i][1] == MiniBoards[BoardNumber][i][2] && MiniBoards[BoardNumber][i][0] != 0) ||
+            (MiniBoards[BoardNumber][0][i] == MiniBoards[BoardNumber][1][i] && MiniBoards[BoardNumber][1][i] == MiniBoards[BoardNumber][2][i] && MiniBoards[BoardNumber][0][i] != 0)) {
             return true;
         }
     }
-    if ((MiniBoards[boardnumber][0][0] == MiniBoards[boardnumber][1][1] && MiniBoards[boardnumber][1][1] == MiniBoards[boardnumber][2][2] && MiniBoards[boardnumber][0][0] != 0) ||
-        (MiniBoards[boardnumber][0][2] == MiniBoards[boardnumber][1][1] && MiniBoards[boardnumber][1][1] == MiniBoards[boardnumber][2][0] && MiniBoards[boardnumber][0][2] != 0)) {
+    if ((MiniBoards[BoardNumber][0][0] == MiniBoards[BoardNumber][1][1] && MiniBoards[BoardNumber][1][1] == MiniBoards[BoardNumber][2][2] && MiniBoards[BoardNumber][0][0] != 0) ||
+        (MiniBoards[BoardNumber][0][2] == MiniBoards[BoardNumber][1][1] && MiniBoards[BoardNumber][1][1] == MiniBoards[BoardNumber][2][0] && MiniBoards[BoardNumber][0][2] != 0)) {
         return true;
     }
 
@@ -100,32 +98,32 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::mini_win(){
 }
 template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::update_board(int x, int y, T mark) {
-    if(mini_win()||mini_draw()){
-        alreadyDisplayed=true;
-        return true;
-    }
-    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) && (MiniBoards[BoardNumber][x][y] == 0|| mark == 0)) {
-            MiniBoards[BoardNumber][x][y]=toupper(mark);
-            mini_moves++;
-            if(mini_draw()){
-                this->n_moves++;
-            }
-            else if(mini_win()){
-                fill_board(mark);
-                 this->n_moves++;
-                this->board[BoardNumber/3][BoardNumber%3]=toupper(mark);
-            }
+    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns ||BoardNumber<0 ||BoardNumber>8) && (MiniBoards[BoardNumber][x][y] == 0|| mark == 0)) {
+             if(mini_win()){
+                return false;
+             }
+             else{
+                MiniBoards[BoardNumber][x][y]=toupper(mark);
+                if(mini_win()){
+                    fill_board(mark);
+                    this->n_moves++;
+                    this->board[BoardNumber/3][BoardNumber%3]=toupper(mark);
+                }
+                else if(mini_draw()){
+                    this->n_moves++;
+                }
+             }
         
 
         return true;
     }
     return false;
 }
-template <typename T>
-void Ultimate_Tic_Tac_Toe_Board<T>::display_mini_boards(){
-    int board_count = MiniBoards.size();
-int grids_per_row = 3;
 
+template <typename T>
+void Ultimate_Tic_Tac_Toe_Board<T>::display_board() {
+        int board_count = MiniBoards.size();
+        int grids_per_row = 3;
 for (int row = 0; row < grids_per_row; ++row) {
     for (int col = 0; col < grids_per_row; ++col) {
         int grid_index = row * grids_per_row + col;
@@ -154,22 +152,6 @@ for (int row = 0; row < grids_per_row; ++row) {
 }
 
 }
-template <typename T>
-void Ultimate_Tic_Tac_Toe_Board<T>::display_board() {
-    if(alreadyDisplayed ||firsttime){
-        return;
-    }
- for (int i = 0; i < this->rows; i++) {
-        cout << "\n| ";
-        for (int j = 0; j < this->columns; j++) {
-            cout << "(" << i << "," << j << ")";
-            cout << setw(2) <<MiniBoards[BoardNumber][i][j] << " |";
-        }
-        cout << "\n-----------------------------";
-    }
-    cout << endl;
-
-}
 
 // Returns true if there is any winner
 template <typename T>
@@ -178,7 +160,6 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
     for (int i = 0; i < this->rows; i++) {
         if ((this->board[i][0] == this->board[i][1] && this->board[i][1] == this->board[i][2] && this->board[i][0] != 0) ||
             (this->board[0][i] == this->board[1][i] && this->board[1][i] == this->board[2][i] && this->board[0][i] != 0)) {
-            display_mini_boards();
             return true;
         }
     }
@@ -186,7 +167,6 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_win() {
     // Check diagonals
     if ((this->board[0][0] == this->board[1][1] && this->board[1][1] == this->board[2][2] && this->board[0][0] != 0) ||
         (this->board[0][2] == this->board[1][1] && this->board[1][1] == this->board[2][0] && this->board[0][2] != 0)) {
-        display_mini_boards();
         return true;
     }
 
@@ -197,7 +177,6 @@ template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::is_draw() {
     if(this->n_moves == 9 && !is_win())
     {
-        display_mini_boards();
         return true;
     }
     return false;
@@ -206,34 +185,9 @@ bool Ultimate_Tic_Tac_Toe_Board<T>::is_draw() {
 template <typename T>
 bool Ultimate_Tic_Tac_Toe_Board<T>::game_is_over() {
     if( is_win() || is_draw()){
-        display_mini_boards();
         return true;
     }
-    else{
-    if(mini_win() || firsttime ||mini_draw())
-    {
-        display_mini_boards();
-        int n;
-        cout<<"Enter the boardnumber from (1-9): ";
-        while(true){
-            cin>>n;
-            if(chosenboards[n-1] ||n<=0 ||n>9){
-                cout<<"please enter a valid value: ";
-            
-            }
-            else {
-                break;
-            }
-            
-        }
-        mini_moves=0;
-        BoardNumber=n-1;
-        firsttime=false;
-        chosenboards[BoardNumber]=true;
-        alreadyDisplayed=false;
-    }
     return false;
-    }
 }
 //--------------------------------------
 
@@ -248,9 +202,9 @@ void Ultimate_Tic_Tac_Toe_Player<T>::getmove(int& x, int& y) {
     cout << "\nPlease enter your move x and y (0 to 2) separated by spaces: ";
     cin >> x >> y;
     }
-    
-    
-    
+    cout<<"please enter the board number (1 to 9)"<<endl;
+    cin>>BoardNumber;
+    BoardNumber--;
 }
 template <typename T>
 Ultimate_Tic_Tac_Toe_Random_Player<T>::Ultimate_Tic_Tac_Toe_Random_Player(T symbol) : RandomPlayer<T>(symbol) {
@@ -263,6 +217,8 @@ template <typename T>
 void Ultimate_Tic_Tac_Toe_Random_Player<T>::getmove(int& x, int& y) {
     x = rand() % this->dimension;  // Random number between 0 and 2
     y = rand() % this->dimension;
+    BoardNumber = rand() %9;
+    
 }
 #endif
 

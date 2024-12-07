@@ -40,7 +40,6 @@ int main() {
             case 2:
                 charPlayers[0] = new FourInRow_Random_Player<char>('X');
                 break;
-            
             default:
                 cout << "Invalid choice for Player 1. Exiting the game.\n";
                 return 1;
@@ -145,7 +144,6 @@ int main() {
     cout << "Choose Player X type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -154,10 +152,6 @@ int main() {
             break;
         case 2:
             players[0] = new _5x5_XO_Random_Player<char>('X');
-            break;
-        case 3:
-            players[0] = new X_O_MinMax_Player<char>('X');
-            players[0]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 1. Exiting the game.\n";
@@ -170,7 +164,6 @@ int main() {
     cout << "Choose Player 2 type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -179,10 +172,6 @@ int main() {
             break;
         case 2:
             players[1] = new _5x5_XO_Random_Player<char>('O');
-            break;
-        case 3:
-            players[1] = new X_O_MinMax_Player<char>('O');
-            players[1]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 2. Exiting the game.\n";
@@ -213,7 +202,6 @@ int main() {
     cout << "Choose Player X type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -222,10 +210,6 @@ int main() {
             break;
         case 2:
             players[1] = new Misere_Random_Player<char>('X');
-            break;
-        case 3:
-            players[1] = new X_O_MinMax_Player<char>('X');
-            players[1]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 1. Exiting the game.\n";
@@ -238,7 +222,6 @@ int main() {
     cout << "Choose Player 2 type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -247,10 +230,6 @@ int main() {
             break;
         case 2:
             players[0] = new Misere_Random_Player<char>('O');
-            break;
-        case 3:
-            players[0] = new X_O_MinMax_Player<char>('O');
-            players[0]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 2. Exiting the game.\n";
@@ -299,7 +278,6 @@ int main() {
         cout << "Choose Player 2 type:\n";
         cout << "1. Human\n";
         cout << "2. Random Computer\n";
-        cout << "3. Smart Computer (AI)\n";
         cin >> choice;
 
         switch (choice) {
@@ -339,7 +317,6 @@ int main() {
     cout << "Choose Player X type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -348,10 +325,6 @@ int main() {
             break;
         case 2:
             players[0] = new _4x4_X_O_Random_Player<char>('X');
-            break;
-        case 3:
-            players[0] = new X_O_MinMax_Player<char>('X');
-            players[0]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 1. Exiting the game.\n";
@@ -364,7 +337,6 @@ int main() {
     cout << "Choose Player 2 type:\n";
     cout << "1. Human\n";
     cout << "2. Random Computer\n";
-    cout << "3. Smart Computer (AI)\n";
     cin >> choice;
 
     switch(choice) {
@@ -373,10 +345,6 @@ int main() {
             break;
         case 2:
             players[1] = new _4x4_X_O_Random_Player<char>('O');
-            break;
-        case 3:
-            players[1] = new X_O_MinMax_Player<char>('O');
-            players[1]->setBoard(B);
             break;
         default:
             cout << "Invalid choice for Player 2. Exiting the game.\n";

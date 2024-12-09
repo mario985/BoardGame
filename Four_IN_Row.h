@@ -88,6 +88,8 @@ void FourInRow_Board<T>::display_board() {
         cout << "+---";
     }
     cout << "+" << endl;
+    for(int i=0;i<7;i++)cout<<"  "<<i<<setw(3);
+    cout<<endl;
 }
 
 

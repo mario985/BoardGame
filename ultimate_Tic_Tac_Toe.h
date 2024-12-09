@@ -141,17 +141,17 @@ for (int row = 0; row < grids_per_row; ++row) {
                 cout << "| ";
                 for (int j = 0; j < 3; ++j) {
                     if(MiniBoards[grid_index][i][j]==0){
-                    cout << "(" << i << "," << j << ") "<<MiniBoards[grid_index][i][j]<<setw(5) << " |";
+                    cout << "(" << i << "," << j << ") "<<MiniBoards[grid_index][i][j]<<setw(5) << "|";
                     }
-                    else cout<<"  "<<MiniBoards[grid_index][i][j]<<setw(8) << " |";
+                    else cout<<"  "<<MiniBoards[grid_index][i][j]<<setw(8) << "|";
                 }
             }
-            cout << "  ";
+            cout << "||  ";
         }
         cout << "\n";
         cout<<endl;
     }
-    cout << string(110, '-') << "\n";
+    cout << string(115, '-') << "\n";
 }
 
 }

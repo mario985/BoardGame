@@ -91,8 +91,8 @@ void Numerical_Tic_Tac_Toe_Board<T>::display_board() {
     for (int i = 0; i < this->rows; i++) {
         cout << "\n| ";
         for (int j = 0; j < this->columns; j++) {
-            cout << "(" << i << "," << j << ")";
-            cout << setw(2) << this->board[i][j] << " |";
+            if(this->board[i][j]==0)cout << "(" << i << "," << j << ")"<< setw(2) << this->board[i][j] << " |";
+            else cout<< setw(5) << this->board[i][j] << "   |";
         }
         cout << "\n-----------------------------";
     }

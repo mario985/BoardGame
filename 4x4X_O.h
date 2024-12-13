@@ -152,7 +152,7 @@ bool _4x4_X_O_Board<T>::is_win() {
 template <typename T>
 bool _4x4_X_O_Board<T>::is_draw() {
     // A draw occurs if all moves are done, and no winner exists
-    return (this->n_moves == this->rows * this->columns && !is_win());
+    return 0 ;
 }
 
 template <typename T>

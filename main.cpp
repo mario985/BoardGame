@@ -7,7 +7,18 @@
 #include "5x5X_O.h"
 #include "Misere.h"
 #include "ultimate_Tic_Tac_Toe.h"
+#include "Pyramid_Board.h"
 #include "4x4X_O.h"
+#include "WordBoard.h"
+#include <algorithm>
+#include <iomanip>
+#include <vector>
+#include <limits>
+#include <string>
+#include <unordered_set>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 int main() {
     int gameChoice;
@@ -19,6 +30,8 @@ int main() {
     cout << "4. Misere Tic-Tac-Toe\n";
     cout << "5. Ultimate_Tic_Tac_Toe\n";
     cout << "6. 4x4 Tic Tac Toe\n";
+    cout<< "7. Pyramic_Tic_Tac_Toe\n";
+    cout<<"8.Word_Tic_Tac_Toe\n";
     cin >> gameChoice;
      if (gameChoice == 1) {
         Player<char>* charPlayers[2];
@@ -362,6 +375,134 @@ int main() {
     }
 
         }
+    else if(gameChoice==7){
+    Pyramid_Board<char> board;
+
+    // Get player names
+    string name1, name2;
+    cout << "Enter Player 1 name: ";
+    cin >> name1;
+    cout << "Enter Player 2 name: ";
+    cin >> name2;
+    board.display_board();
+
+    // Create players
+    X_O_Player<char> player1(name1, 'X');
+    X_O_Player<char> player2(name2, 'O');
+    Player<char>* players[] = { &player1, &player2 };
+    // Game loop
+    while (!board.game_is_over()) {
+        for (int i = 0; i < 2; ++i) {
+            int x, y;
+
+            // Prompt for the current player's move
+            cout << players[i]->getname() << "'s turn (" << players[i]->getsymbol() << "). Enter your move (row column): ";
+
+            while (true) {
+                cin >> x >> y;
+
+                // Validate input
+                if (cin.fail()) {
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    cout << "Invalid input! Please enter valid integers for row and column (e.g., 1 2): ";
+                }
+                else if (x < 0 || x >= board.get_rows() || y < 0 || y >= board.get_columns(x) || !board.update_board(x, y, players[i]->getsymbol())) {
+                    cout << "Invalid move! Try again (row column): ";
+                }
+                else {
+                    board.display_board();
+                    break; 
+                }
+            }
+
+            // Check for a winner
+            if (board.is_win()) {
+                cout << "Congratulations, " << players[i]->getname() << "! You win!\n";
+                return 0;
+            }
+
+            // Check for a draw
+            if (board.is_draw()) {
+                cout << "It's a draw!\n";
+                return 0;
+            }
+        }
+    }
+
+    }
+    else if(gameChoice==8){
+        Dictionary dictionary;
+    dictionary.load("dic.txt");
+
+    WordBoard board(&dictionary);
+
+    cout << "Enter Player 1 name: ";
+    string name1;
+    cin >> name1;
+
+    int choice;
+    WordPlayer* player1 = nullptr;
+
+    // Validate Player 1 type input
+    while (true) {
+        cout << "Choose Player 1 type:\n1. Human\n2. Random AI\n";
+        cin >> choice;
+
+        // Check if the input is valid
+        if (cin.fail() || (choice != 1 && choice != 2)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice. Please enter 1 or 2.\n";
+        }
+        else {
+            // Valid input
+            if (choice == 1) {
+                player1 = new HumanPlayer(name1);
+            }
+            else {
+                player1 = new RandomAIPlayer(name1);
+            }
+            break;
+        }
+    }
+
+    cout << "Enter Player 2 name: ";
+    string name2;
+    cin >> name2;
+
+    WordPlayer* player2 = nullptr;
+
+    // Validate Player 2 type input
+    while (true) {
+        cout << "Choose Player 2 type:\n1. Human\n2. Random AI\n";
+        cin >> choice;
+
+        // Check if the input is valid
+        if (cin.fail() || (choice != 1 && choice != 2)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice. Please enter 1 or 2.\n";
+        }
+        else {
+            // Valid input
+            if (choice == 1) {
+                player2 = new HumanPlayer(name2);
+            }
+            else {
+                player2 = new RandomAIPlayer(name2);
+            }
+            break;
+        }
+    }
+
+    Gamemanager gameManager(&board, player1, player2);
+    gameManager.run();
+
+    delete player1;
+    delete player2;
+
+    }
     else {
         cout << "Invalid game choice. Exiting.\n";
         return 1;

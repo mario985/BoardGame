@@ -24,16 +24,16 @@ int main() {
     int gameChoice;
     cout << "Welcome to FCAI BoardGame. :)\n";
     cout << "Choose a game to play:\n";
-    cout << "1. Four-In-Row\n";
-    cout << "2. Numerical Tic-Tac-Toe\n";
+    cout<< "1. Pyramic_Tic_Tac_Toe\n";
+    cout << "2. Four-In-Row\n";
     cout << "3. 5x5 Tic Tac Toe\n";
-    cout << "4. Misere Tic-Tac-Toe\n";
-    cout << "5. Ultimate_Tic_Tac_Toe\n";
-    cout << "6. 4x4 Tic Tac Toe\n";
-    cout<< "7. Pyramic_Tic_Tac_Toe\n";
-    cout<<"8.Word_Tic_Tac_Toe\n";
+    cout<<"4.Word_Tic_Tac_Toe\n";
+    cout << "5. Numerical Tic-Tac-Toe\n";
+    cout << "6. Misere Tic-Tac-Toe\n";
+    cout << "7. 4x4 Tic Tac Toe\n";
+    cout << "8. Ultimate_Tic_Tac_Toe\n";
     cin >> gameChoice;
-     if (gameChoice == 1) {
+     if (gameChoice == 2) {
         Player<char>* charPlayers[2];
          FourInRow_Board<char>* charBoard  = new FourInRow_Board<char>();
         string player1Name, player2Name;
@@ -89,7 +89,7 @@ int main() {
             delete charPlayers[i];
         }
     } 
-   else if (gameChoice == 2) {
+   else if (gameChoice == 5) {
          Numerical_Tic_Tac_Toe_Board<int>* numBoard = new Numerical_Tic_Tac_Toe_Board<int>();
             Player<int>* numPlayers[2];
         string playerXName, player2Name;
@@ -201,7 +201,7 @@ int main() {
         delete players[i];
     }
     }
-     else if (gameChoice == 4) {
+     else if (gameChoice == 6) {
         int choice;
     Player<char>* players[2];
     Misere_Board<char>* B = new Misere_Board<char>();
@@ -259,7 +259,7 @@ int main() {
         delete players[i];
     }
     }
-    else if(gameChoice==5){
+    else if(gameChoice==8){
          Player<char>* charPlayers[2];
          Ultimate_Tic_Tac_Toe_Board<char>* charBoard  = new Ultimate_Tic_Tac_Toe_Board<char>();
         string player1Name, player2Name;
@@ -316,7 +316,7 @@ int main() {
         }
 
     }
-        else if (gameChoice == 6){
+        else if (gameChoice == 7){
             int choice;
     Player<char>* players[2];
     _4x4_X_O_Board<char>* B = new _4x4_X_O_Board<char>();
@@ -375,7 +375,7 @@ int main() {
     }
 
         }
-    else if(gameChoice==7){
+    else if(gameChoice==1){
     Pyramid_Board<char> board;
 
     // Get player names
@@ -431,7 +431,7 @@ int main() {
     }
 
     }
-    else if(gameChoice==8){
+    else if(gameChoice==4){
         Dictionary dictionary;
     dictionary.load("dic.txt");
 

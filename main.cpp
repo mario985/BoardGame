@@ -10,6 +10,7 @@
 #include "Pyramid_Board.h"
 #include "4x4X_O.h"
 #include "WordBoard.h"
+#include "SUS_Tic_Tac_Toe.h"
 #include <algorithm>
 #include <iomanip>
 #include <vector>
@@ -27,11 +28,12 @@ int main() {
     cout<< "1. Pyramic_Tic_Tac_Toe\n";
     cout << "2. Four-In-Row\n";
     cout << "3. 5x5 Tic Tac Toe\n";
-    cout<<"4.Word_Tic_Tac_Toe\n";
+    cout<<"4. Word_Tic_Tac_Toe\n";
     cout << "5. Numerical Tic-Tac-Toe\n";
     cout << "6. Misere Tic-Tac-Toe\n";
     cout << "7. 4x4 Tic Tac Toe\n";
     cout << "8. Ultimate_Tic_Tac_Toe\n";
+    cout<< "9. Sus_Tic_Tac_Toe\n";
     cin >> gameChoice;
      if (gameChoice == 2) {
         Player<char>* charPlayers[2];
@@ -89,6 +91,63 @@ int main() {
             delete charPlayers[i];
         }
     } 
+    else if(gameChoice==9){
+        Player<char>* charPlayers[2];
+         SUS_Board<char>* charBoard  = new SUS_Board<char>();
+        string player1Name, player2Name;
+        int choice;
+        // Set up Player 1
+        cout << "Enter Player 1 name: ";
+        cin >> player1Name;
+        cout << "Choose Player 1 type:\n";
+        cout << "1. Human\n";
+        cout << "2. Random Computer\n";
+        cout << "3. Smart Computer (AI)\n";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                charPlayers[0] = new SUS_Player<char>(player1Name, 'X');
+                break;
+            case 2:
+                charPlayers[0] = new SUS_Random_Player<char>('X');
+                break;
+            default:
+                cout << "Invalid choice for Player 1. Exiting the game.\n";
+                return 1;
+        }
+
+        // Set up Player 2
+        cout << "Enter Player 2 name: ";
+        cin >> player2Name;
+        cout << "Choose Player 2 type:\n";
+        cout << "1. Human\n";
+        cout << "2. Random Computer\n";
+        cout << "3. Smart Computer (AI)\n";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                charPlayers[1] = new SUS_Player<char>(player2Name, 'O');
+                break;
+            case 2:
+                charPlayers[1] = new SUS_Random_Player<char>('O');
+                break;
+            default:
+                cout << "Invalid choice for Player 2. Exiting the game.\n";
+                return 1;
+        }
+
+        // Create the game manager and run Four-In-Row
+        GameManager<char> rowGame(charBoard, charPlayers);
+        rowGame.run();
+
+        // Clean up
+        delete charBoard;
+        for (int i = 0; i < 2; ++i) {
+            delete charPlayers[i];
+        }
+    }
+    
    else if (gameChoice == 5) {
          Numerical_Tic_Tac_Toe_Board<int>* numBoard = new Numerical_Tic_Tac_Toe_Board<int>();
             Player<int>* numPlayers[2];

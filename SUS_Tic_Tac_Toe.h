@@ -60,7 +60,7 @@ SUS_Board<T>::SUS_Board() {
 template <typename T>
 bool SUS_Board<T>::update_board(int x, int y, T mark) {
     // Only update if move is valid
-    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) &&((this->board[x][y] == 0) &&(choice=='S' ||choice=='U'))) {
+    if (!(x < 0 || x >= this->rows || y < 0 || y >= this->columns) &&((this->board[x][y] == 0) &&(choice=='S' ||choice=='U' ||choice=='s' ||choice=='u'))) {
         if (mark == 0){
             this->n_moves--;
             this->board[x][y] = 0;
@@ -139,7 +139,7 @@ void SUS_Player<T>::getmove(int& x, int& y) {
     cin >> x >> y;
     cout<<"\nPlease enter your character(S or U): ";
     cin>>choice;
-    toupper(choice);
+    
 }
 
 // Constructor for SUS_Random_Player

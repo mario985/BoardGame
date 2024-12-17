@@ -107,9 +107,11 @@ int main() {
         switch (choice) {
             case 1:
                 charPlayers[0] = new SUS_Player<char>(player1Name, 'X');
+                charPlayers[0]->setBoard(charBoard);
                 break;
             case 2:
                 charPlayers[0] = new SUS_Random_Player<char>('X');
+                charPlayers[0]->setBoard(charBoard);
                 break;
             default:
                 cout << "Invalid choice for Player 1. Exiting the game.\n";
@@ -128,9 +130,11 @@ int main() {
         switch (choice) {
             case 1:
                 charPlayers[1] = new SUS_Player<char>(player2Name, 'O');
+                charPlayers[1]->setBoard(charBoard);
                 break;
             case 2:
                 charPlayers[1] = new SUS_Random_Player<char>('O');
+                charPlayers[1]->setBoard(charBoard);
                 break;
             default:
                 cout << "Invalid choice for Player 2. Exiting the game.\n";

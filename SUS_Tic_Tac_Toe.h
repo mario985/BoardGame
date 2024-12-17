@@ -1,7 +1,7 @@
 
 #ifndef _3X3SUS_H
 #define _3X3SUS_H
-
+int player1count=0,player2count=0;
 #include "BoardGame_Classes.h"
 char choice;
 template <typename T>
